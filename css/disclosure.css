@@ -14,6 +14,9 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'SourceHanSansCN-Medium';
   font-weight: bold;
 }
+.idis_image {
+  position: relative;
+}
 .idis_image img {
   width: 100%;
   pointer-events: none;
@@ -48,7 +51,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 .idis_wrap li.active {
   color: #3385cc;
+  font-weight: 600;
   border-bottom: solid 2px #3385cc;
+  transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .idis_wrap,
@@ -139,6 +144,39 @@ h1,h2,h3,h4,h5,h6 {
 .idis_item {
   padding: 0 122px;
   border-top:1px solid transparent;
+  position: relative;
+}
+.gl_l,
+.gl_r {
+  position: absolute;
+  color: #fff;
+  top: 240px;
+}
+.gl_l {
+  left: 500px;
+}
+.gl_r {
+  left: 750px;
+}
+.legend {
+  display: inline-block;
+  line-height: 20px;
+  margin: 30px;
+}
+.legend_l span {
+  background-color: #448ccb;
+}
+.legend_r span {
+  background-color: #82ca9c;
+}
+.legend span {
+  display: inline-block;
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin-right: 10px;
 }
 .idis_item h2 {
   font-size: 22px;
@@ -315,7 +353,6 @@ h1,h2,h3,h4,h5,h6 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 86px;
 }
 .idis_8_item {
   width: 381px;
@@ -332,7 +369,13 @@ h1,h2,h3,h4,h5,h6 {
 }
 .idis_8_item:hover {
   transition: all .2s linear;
-  transform: scale(1.02);
+  transform: scale(1.01);
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,.1);
 }
 
 /* 覆盖样式 */
+#glPie {
+  width:540px;
+  height:280px;
+  margin:0 auto;
+}

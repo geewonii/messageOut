@@ -1,3 +1,4 @@
+
 $(function() {
   var body = $('body');
   var $idis_contents = $('.idis_contents');
@@ -6,11 +7,19 @@ $(function() {
   
   function init() {
     $(".idis_wrap li").each(function(index) {
-      $(this).hasClass("active") && $(".idisModel").eq(index).show();
+      $(this).hasClass("active") && $(".idisModel").eq(index).fadeIn(300);
     })
   }
 
-  //control
+  // 选中tab
+  $(".idis_wrap li").click(function() {
+    $(this).siblings().removeClass("active");
+    $(this).addClass("active");
+    $(".idisModel").fadeOut(200);
+    init();
+  })
+
+  //control 显示更多
   $idis_contents.each(function() {
     $(this).html().length !== 0 &&
     $(this).append('<label class="idis_expand_more">...更多</label>');
@@ -19,23 +28,13 @@ $(function() {
     $(this).html().length !== 0 &&
     $(this).append(' <label class="idis_expand_more2">收起</label>');
   })
-
-  // 选中tab
-  $(".idis_wrap li").click(function() {
-    $(this).siblings().removeClass("active");
-    $(this).addClass("active");
-    $(".idisModel").hide();
-    init();
-  })
-  
-  // tab显示更多
   body.on('click', '.idis_expand_more', function() {
     $(this).parent().hide();
-    $(this).parent().siblings(".idis_fake_content").fadeIn();
+    $(this).parent().siblings(".idis_fake_content").show();
   });
   body.on('click', '.idis_expand_more2', function() {
     $(this).parent().hide();
-    $(this).parent().siblings(".idis_contents").fadeIn();
+    $(this).parent().siblings(".idis_contents").show();
   });
 
   //备案信息数据及处理
@@ -57,13 +56,13 @@ $(function() {
       id: '3',
       title: '（资金存管信息）',
       img: '',
-      tips: '暂未上线',
+      tips: '正在开发当中···',
       p: ['1.资金存管银行全称：海口联合农商银行','2.资金存管上线时间：暂未上线','3.丰利金服和海口联合农商银行签署的资金存管合作协议，如上图。']
     }, {
       id: '4',
       title: '（资金存管信息）',
       img: '',
-      tips: '暂未上线',
+      tips: '正在开发当中···',
       p: ['资金存管系统业务流程图']
     }, {
       id: '5',
@@ -71,7 +70,7 @@ $(function() {
       img: './image/628677461767993860.png',
       imgStyle: 'height:100%;',
       tips: '',
-      p: ['公安机关出具的网站备案图标及编号：','粤公网安备44010402000630号 ','公安机关出具的网站备案信息截图（如上图）']
+      p: ['公安机关出具的网站备案图标及编号：','https://www.phonelee.com/Content/new/newimages/%E7%B2%A4%E5%85%AC%E7%BD%91%E5%A4%87%E6%A1%88.png @&# 粤公网安备44010402000630号 ','公安机关出具的网站备案信息截图（如上图）']
     }, {
       id: '6',
       title: '网站备案及评测信息',
@@ -90,10 +89,20 @@ $(function() {
   information.forEach(function(todo) {
     var content = '';
     var children = '';
-    todo.img ? 
+    todo.img ?
       content = `<img draggable="false" style="${todo.imgStyle ? todo.imgStyle : ''}" src="${todo.img}" alt="${todo.img}">`:
         content = `<h3>${todo.tips}</h3>`;
     todo.p.forEach(function(item) {
+      if (!!item.match(/^((https|http)?:\/\/)[^\s]+/)) {
+        const splitArr = item.split('@&#');
+        children += `
+        <p>
+          <img src="${splitArr[0]}" alt="" />
+          <span>${splitArr[1]}</span>
+        </p>
+        `;
+        return;
+      }
       children += `<p>${item}</p>`;
     });
     $idis_2_todo.append(`
@@ -238,8 +247,9 @@ $(function() {
       }
     ]
   };
-  new SelfTable("#idis_3_table1", { data: organizeInfo1 }); 
-  new SelfTable("#idis_3_table2", { data: organizeInfo2 }); 
+  new SelfTable("#idis_3_table1", { data: organizeInfo1 });
+  new SelfTable("#idis_3_table2", { data: organizeInfo2 });
+
   // 审核信息数据及处理
   var $idis_4_todo = $("#idis_4_todo");
   var audit = [
@@ -260,7 +270,7 @@ $(function() {
   audit.forEach(function(todo) {
     var content = '';
     var children = '';
-    todo.img ? 
+    todo.img ?
       content = `<img draggable="false" style="${todo.imgStyle ? todo.imgStyle : ''}" src="${todo.img}" alt="${todo.img}">`:
         content = `<h3>${todo.tips}</h3>`;
     todo.p.forEach(function(item) {
@@ -278,7 +288,6 @@ $(function() {
       </div>
     `);
   });
-
 
   // 经营信息数据及处理
   var businessInfo1 = {
@@ -467,50 +476,68 @@ $(function() {
     footerInfo: '数据截止日期：2018-2-28（每月前5个工作日更新）'
   };
   new SelfTable("#idis_6_table1", { data: importantInfo });
-})
 
-// 运营报告数据及处理
-var $idis_8_todo = $("#idis_8_todo");
-var reports = [
-  {
-    id: '1',
-    title: '2018年2月运营报告',
-    img: './image/8_08.png',
-    href: ''
-  }, {
-    id: '2',
-    title: '2018年1月运营报告',
-    img: './image/8_03.png',
-    href: ''
-  }, {
-    id: '3',
-    title: '2017年12月运营报告',
-    img: './image/8_05.png',
-    href: ''
-  }, {
-    id: '4',
-    title: '2017年11月运营报告',
-    img: './image/8_14.png',
-    href: ''
-  }, {
-    id: '5',
-    title: '2017年10月运营报告',
-    img: './image/8_17.png',
-    href: ''
-  }, {
-    id: '6',
-    title: '2017年9月运营报告',
-    img: './image/8_19.png',
-    href: ''
-  }
-];
-reports.forEach(function(todo) {
-  $idis_8_todo.append(`
-  <a href="${todo.href}">
-    <div class="idis_8_item">
-      <div><img src="${todo.img}" alt=""></div>
-      <p>${todo.title}</p>
-    </div>
-  </a>
-  `);
+  // 运营报告数据及处理
+  var $idis_8_todo = $("#idis_8_todo");
+  var reports = [
+    {
+      id: '1',
+      title: '2018年2月运营报告',
+      img: './image/8_08.png',
+      href: ''
+    }, {
+      id: '2',
+      title: '2018年1月运营报告',
+      img: './image/8_03.png',
+      href: ''
+    }, {
+      id: '3',
+      title: '2017年12月运营报告',
+      img: './image/8_05.png',
+      href: ''
+    }, {
+      id: '4',
+      title: '2017年11月运营报告',
+      img: './image/8_14.png',
+      href: ''
+    }, {
+      id: '5',
+      title: '2017年10月运营报告',
+      img: './image/8_17.png',
+      href: ''
+    }, {
+      id: '6',
+      title: '2017年9月运营报告',
+      img: './image/8_19.png',
+      href: ''
+    }
+  ];
+  reports.forEach(function(todo) {
+    $idis_8_todo.append(`
+    <a href="${todo.href}">
+      <div class="idis_8_item">
+        <div><img src="${todo.img}" alt=""></div>
+        <p>${todo.title}</p>
+      </div>
+    </a>
+    `);
+  });
+  $('#light-pagination').pagination({
+    pages: 20,
+    cssStyle: 'light-theme'
+  });
+  $('#dark-pagination').pagination({
+    pages: 20,
+    cssStyle: 'dark-theme',
+    displayedPages: 3,
+    edges: 3
+  });
+  $('#compact-pagination').pagination({
+    pages: 70,
+    cssStyle: 'compact-theme',
+    displayedPages: 7
+  });
+  
 });
+
+

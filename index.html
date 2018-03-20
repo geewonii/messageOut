@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,18 +11,18 @@
   <link rel="icon" href="https://www.phonelee.com/Content/images/favicon.ico">
   <link rel="stylesheet" href="./css/disclosure.css">
   <link rel="stylesheet" href="./css/selfTable.css">
+  <link rel="stylesheet" href="./css/simplePagination.css" />
 </head>
-
 <body>
   <div class="idis_image idis_nav"><img draggable="false" src="./image/1_01.png" alt=""></div>
   <div id="idis_tab">
     <ul class="idis_wrap">
       <li>信息披露制度</li>
       <li>备案信息</li>
-      <li>组织信息</li>
+      <li class="active">组织信息</li>
       <li>审核信息</li>
       <li>经营信息</li>
-      <li class="active">重大信息</li>
+      <li>重大信息</li>
       <!-- <li>实时数据</li> -->
       <li>运营报告</li>
     </ul>
@@ -140,7 +139,6 @@
       <div id="idis_2_todo"><!-- js循环输出内容 --></div>
       <div class="idis_item">
         <h2>风险管理信息</h2>
-        <div class="idis_image">风险管理架构 、风险评估流程 、风险预警管理情况 、催收方式</div>
         <h3>1·风险管理架构</h3>
         <div class="idis_image idis_shadow"><img draggable="false" src="./image/2_03.png" alt=""></div>
         <h3>2·风险评估流程</h3>
@@ -162,7 +160,13 @@
       </div>
       <div class="idis_item">
         <h3>公司股东占股比例</h3>
-        <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_08.png" alt=""></div>
+        <!-- <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_08.png" alt=""></div> -->
+        <div class="idis_image idis_shadow">
+          <div id="g2Pie"></div>
+          <img style="position: absolute;top: 152px;left: 458px;visibility: visible;z-index: 7;width:100px;" src="./image/logo-1.png" />
+          <div>各股东出资额如下：1、林泽妍266万，2、金正阳223.4万，3、黄敬军170.2万，4、黄蓉170.2万，5、钱博170.2万</div>
+          <br>
+        </div>
       </div>
       <div class="idis_item">
         <h3>股东介绍</h3>
@@ -235,11 +239,20 @@
       </div>
       <div class="idis_item">
         <h3>员工整体学历情况</h3>
-        <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_14.png" alt=""></div>
+        <p>员工整体学历情况 : 大专 21% &nbsp; 本科 79%</p>
+        <span class="gl_l">79%</span>
+        <span class="gl_r">21%</span>
+        <div id="glPie"></div>
+        <div style="display: flex;justify-content: center;">
+          <div class="legend legend_l"><span></span>本科</div>
+          <div class="legend legend_r"><span></span>大专</div>
+        </div>
+        <!-- <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_14.png" alt=""></div> -->
       </div>
       <div class="idis_item">
         <h3>员工整体年龄结构</h3>
-        <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_16.png" alt=""></div>
+        <div id="g2Column"></div>
+        <!-- <div class="idis_image idis_shadow"><img draggable="false" src="./image/1_16.png" alt=""></div> -->
       </div>
       <div class="idis_item">
         <h3>从业人员概况</h3>
@@ -249,7 +262,7 @@
         <h2>三.官方渠道信息</h2>
         <div id="idis_3_table2"><!-- js循环输出内容 --></div>
       </div>
-      <div class="idis_item">
+      <div class="idis_item" style="padding:60px 122px;">
         <h3>法人承诺书</h3>
         <div class="idis_image idis_shadow"><img draggable="false" src="" alt=""></div>
       </div>
@@ -282,7 +295,7 @@
         </div>
       </div>
       <div id="idis_4_todo"><!-- js循环输出内容 --></div>
-      <div class="idis_item">
+      <div class="idis_item" style="padding: 0;">
           <h2>法人承诺书</h2>
           <div class="idis_image idis_shadow"><img draggable="false" src="" alt=""></div>
       </div>
@@ -298,7 +311,7 @@
         <div id="idis_5_table2"><!-- js循环输出内容 --></div>
         <p>出借人收费标准明细</p>
         <div id="idis_5_table3"><!-- js循环输出内容 --></div>
-        <div class="idis_item">
+        <div class="idis_item" style="padding: 0;">
           <h2>法人承诺书</h2>
           <div class="idis_image idis_shadow"><img draggable="false" src="" alt=""></div>
         </div>
@@ -317,6 +330,9 @@
     <!-- <div class="idis_7 idisModel"></div> -->
     <div class="idis_8 idisModel">
       <div id="idis_8_todo"><!-- js循环输出内容 --></div>
+      <div class="pagination-holder clearfix" style="margin-bottom: 86px;">
+        <div id="light-pagination" class="pagination"></div>
+      </div>
       <div class="idis_item">
         <h2>法人承诺书</h2>
         <div class="idis_image idis_shadow"><img draggable="false" src="" alt=""></div>
@@ -324,7 +340,13 @@
     </div>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  <script src="./js/selfTable.js"></script>
+  <script src="./modules/min/g2-3.0.5.min.js"></script>
+  <script src="./modules/min/data-set-0.8.5.min.js"></script>
+  <script src="./modules/min/three-90.min.js"></script>
+  <script src="./modules/RequestAnimationFrame.js"></script>
+  <script src="./modules/selfTable.js"></script>
+  <script src="./modules/jquery.simplePagination.js"></script>
   <script src="./js/disclosure.js"></script>
+  <script src="./js/thisChart.js"></script>
 </body>
 </html>
