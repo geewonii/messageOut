@@ -537,7 +537,6 @@ $(function() {
     cssStyle: 'compact-theme',
     displayedPages: 7
   });
-  
 });
 
 

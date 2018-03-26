@@ -120,7 +120,7 @@ $(function() {
       run();
     }
     
-    function run(){
+    function run() {
       renderer.render( scene, camera );
       requestAnimationFrame(run);
     }
